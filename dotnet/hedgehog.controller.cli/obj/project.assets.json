@@ -1,0 +1,684 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.AccessControl": "4.6.0-preview3.19128.7",
+          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+        },
+        "compile": {
+          "ref/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "Microsoft.WindowsDesktop.App/3.0.0-preview3-27504-2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "Microsoft.NETCore.Targets": "2.0.0"
+        },
+        "compile": {
+          "ref/netcoreapp3.0/_._": {}
+        },
+        "build": {
+          "build/netcoreapp3.0/_._": {}
+        }
+      },
+      "runtime.linux-arm.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/System.IO.Ports.Native.so": {
+            "assetType": "native",
+            "rid": "linux-arm"
+          }
+        }
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/System.IO.Ports.Native.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          }
+        }
+      },
+      "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost/3.0.0-preview3-27503-5": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/_._": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          }
+        }
+      },
+      "runtime.linux-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/System.IO.Ports.Native.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          }
+        }
+      },
+      "runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "dependencies": {
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7"
+        }
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/osx-x64/native/System.IO.Ports.Native.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          }
+        }
+      },
+      "System.IO.Ports/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.Registry": "4.6.0-preview3.19128.7",
+          "runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.Ports.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IO.Ports.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard2.0/System.IO.Ports.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/osx/lib/netstandard2.0/System.IO.Ports.dll": {
+            "assetType": "runtime",
+            "rid": "osx"
+          },
+          "runtimes/win/lib/netstandard2.0/System.IO.Ports.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Security.AccessControl/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
+          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+        },
+        "compile": {
+          "ref/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp3.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "YamlDotNet/6.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.3/YamlDotNet.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/YamlDotNet.dll": {}
+        }
+      },
+      "hedgehog.controller.core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "System.IO.Ports": "4.6.0-preview3.19128.7",
+          "YamlDotNEt": "6.0.0"
+        },
+        "compile": {
+          "bin/placeholder/hedgehog.controller.core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/hedgehog.controller.core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {
+      "sha512": "4/k52fBHvM1RNPoBMik0Y3wIovsUGaTadNGH75iLGjQCJPRq2UBivEkhYrYkIFnu+K9kTYJcmXCDF6SFzMBrqA==",
+      "type": "package",
+      "path": "microsoft.netcore.platforms/3.0.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard1.0/_._",
+        "microsoft.netcore.platforms.3.0.0-preview3.19128.7.nupkg.sha512",
+        "microsoft.netcore.platforms.nuspec",
+        "runtime.json",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Microsoft.NETCore.Targets/2.0.0": {
+      "sha512": "odP/tJj1z6GylFpNo7pMtbd/xQgTC3Ex2If63dRTL38bBNMwsBnJ+RceUIyHdRBC0oik/3NehYT+oECwBhIM3Q==",
+      "type": "package",
+      "path": "microsoft.netcore.targets/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard1.0/_._",
+        "microsoft.netcore.targets.2.0.0.nupkg.sha512",
+        "microsoft.netcore.targets.nuspec",
+        "runtime.json",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
+      "sha512": "nEbjnXltvnv6Irrt4NWt0+VKE7wXef8kgCmeTs7ro8zH/qwUkhKtJXPj5JGWSIz7sQ6UfmOkvZ3a+3DcrEua5Q==",
+      "type": "package",
+      "path": "microsoft.win32.registry/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/Microsoft.Win32.Registry.dll",
+        "lib/net461/Microsoft.Win32.Registry.dll",
+        "lib/net461/Microsoft.Win32.Registry.xml",
+        "lib/netstandard1.3/Microsoft.Win32.Registry.dll",
+        "lib/netstandard2.0/Microsoft.Win32.Registry.dll",
+        "lib/netstandard2.0/Microsoft.Win32.Registry.xml",
+        "microsoft.win32.registry.4.6.0-preview3.19128.7.nupkg.sha512",
+        "microsoft.win32.registry.nuspec",
+        "ref/net46/Microsoft.Win32.Registry.dll",
+        "ref/net461/Microsoft.Win32.Registry.dll",
+        "ref/net461/Microsoft.Win32.Registry.xml",
+        "ref/net472/Microsoft.Win32.Registry.dll",
+        "ref/net472/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/Microsoft.Win32.Registry.dll",
+        "ref/netstandard1.3/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/de/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/es/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/fr/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/it/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/ja/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/ko/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/ru/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/zh-hans/Microsoft.Win32.Registry.xml",
+        "ref/netstandard1.3/zh-hant/Microsoft.Win32.Registry.xml",
+        "ref/netstandard2.0/Microsoft.Win32.Registry.dll",
+        "ref/netstandard2.0/Microsoft.Win32.Registry.xml",
+        "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
+        "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.xml",
+        "runtimes/win/lib/net46/Microsoft.Win32.Registry.dll",
+        "runtimes/win/lib/net461/Microsoft.Win32.Registry.dll",
+        "runtimes/win/lib/net461/Microsoft.Win32.Registry.xml",
+        "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll",
+        "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
+        "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.xml",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Microsoft.WindowsDesktop.App/3.0.0-preview3-27504-2": {
+      "sha512": "t7Iw6nkx03aOXgZ7L2ZJLN7hGY7FlUaxIyH6UbGhjHCJABxfV8Bx3xOe6E63xa1HVeoccCAdNPctTX2s2zj5SQ==",
+      "type": "package",
+      "path": "microsoft.windowsdesktop.app/3.0.0-preview3-27504-2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "build/netcoreapp3.0/Microsoft.WindowsDesktop.App.targets",
+        "build/netcoreapp3.0/ref-mscorlib/System.ComponentModel.dll",
+        "build/netcoreapp3.0/ref-mscorlib/System.Runtime.CompilerServices.VisualC.dll",
+        "build/netcoreapp3.0/ref-mscorlib/System.Runtime.dll",
+        "build/netcoreapp3.0/ref-mscorlib/mscorlib.dll",
+        "microsoft.windowsdesktop.app.3.0.0-preview3-27504-2.nupkg.sha512",
+        "microsoft.windowsdesktop.app.nuspec",
+        "ref/netcoreapp3.0/Accessibility.dll",
+        "ref/netcoreapp3.0/Microsoft.Win32.Registry.dll",
+        "ref/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll",
+        "ref/netcoreapp3.0/PresentationCore-CommonResources.dll",
+        "ref/netcoreapp3.0/PresentationCore.dll",
+        "ref/netcoreapp3.0/PresentationFramework.Aero.dll",
+        "ref/netcoreapp3.0/PresentationFramework.Aero2.dll",
+        "ref/netcoreapp3.0/PresentationFramework.AeroLite.dll",
+        "ref/netcoreapp3.0/PresentationFramework.Classic.dll",
+        "ref/netcoreapp3.0/PresentationFramework.Luna.dll",
+        "ref/netcoreapp3.0/PresentationFramework.Royale.dll",
+        "ref/netcoreapp3.0/PresentationFramework.dll",
+        "ref/netcoreapp3.0/PresentationUI.dll",
+        "ref/netcoreapp3.0/ReachFramework.dll",
+        "ref/netcoreapp3.0/System.CodeDom.dll",
+        "ref/netcoreapp3.0/System.Configuration.ConfigurationManager.dll",
+        "ref/netcoreapp3.0/System.Design.dll",
+        "ref/netcoreapp3.0/System.Drawing.Common.dll",
+        "ref/netcoreapp3.0/System.Drawing.Design.dll",
+        "ref/netcoreapp3.0/System.Drawing.dll",
+        "ref/netcoreapp3.0/System.Printing.dll",
+        "ref/netcoreapp3.0/System.Security.AccessControl.dll",
+        "ref/netcoreapp3.0/System.Security.Cryptography.Cng.dll",
+        "ref/netcoreapp3.0/System.Security.Cryptography.Pkcs.dll",
+        "ref/netcoreapp3.0/System.Security.Cryptography.ProtectedData.dll",
+        "ref/netcoreapp3.0/System.Security.Cryptography.Xml.dll",
+        "ref/netcoreapp3.0/System.Security.Permissions.dll",
+        "ref/netcoreapp3.0/System.Security.Principal.Windows.dll",
+        "ref/netcoreapp3.0/System.Windows.Controls.Ribbon.dll",
+        "ref/netcoreapp3.0/System.Windows.Extensions.dll",
+        "ref/netcoreapp3.0/System.Windows.Forms.Design.Editors.dll",
+        "ref/netcoreapp3.0/System.Windows.Forms.Design.dll",
+        "ref/netcoreapp3.0/System.Windows.Forms.dll",
+        "ref/netcoreapp3.0/System.Windows.Input.Manipulations.dll",
+        "ref/netcoreapp3.0/System.Windows.Presentation.dll",
+        "ref/netcoreapp3.0/System.Xaml.dll",
+        "ref/netcoreapp3.0/UIAutomationClient.dll",
+        "ref/netcoreapp3.0/UIAutomationClientSideProviders.dll",
+        "ref/netcoreapp3.0/UIAutomationProvider.dll",
+        "ref/netcoreapp3.0/UIAutomationTypes.dll",
+        "ref/netcoreapp3.0/WindowsBase.dll",
+        "ref/netcoreapp3.0/WindowsFormsIntegration.dll",
+        "runtime.json",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.linux-arm.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "O+h4jlz8SPmYqSMZmg1WBQsGdgL47vRguu3yCDG1QQJoiMUUX/s2B8eiA3n7iDlezPzqvkvpfopZj54OOMOBeA==",
+      "type": "package",
+      "path": "runtime.linux-arm.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.linux-arm.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.linux-arm.runtime.native.system.io.ports.nuspec",
+        "runtimes/linux-arm/native/System.IO.Ports.Native.so",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.linux-arm64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "iTciB6E5+0cKkNOHiYalGjh/IcIZPYuz7jUAzu+Dyqqx7HM+vF+lGeQOi8Q8LOmDfTo6wNaWM76gvOTxMqAkNQ==",
+      "type": "package",
+      "path": "runtime.linux-arm64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.linux-arm64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.linux-arm64.runtime.native.system.io.ports.nuspec",
+        "runtimes/linux-arm64/native/System.IO.Ports.Native.so",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost/3.0.0-preview3-27503-5": {
+      "sha512": "31D0GQdLD2jqiBt/1w9vZnRZbEaJqS8n/du9VUs5lz9YZAuVrwwD28SxJmplEo+woSkXbYvaCZbuWeuzcksDGA==",
+      "type": "package",
+      "path": "runtime.linux-x64.microsoft.netcore.dotnetapphost/3.0.0-preview3-27503-5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.linux-x64.microsoft.netcore.dotnetapphost.3.0.0-preview3-27503-5.nupkg.sha512",
+        "runtime.linux-x64.microsoft.netcore.dotnetapphost.nuspec",
+        "runtimes/linux-x64/native/apphost",
+        "version.txt"
+      ]
+    },
+    "runtime.linux-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "ECpad3RVtmJUiMRQsZ9YcOKUcZdA+bN6eFDtlVjvSpucy61lzsB7mNp3t7TeA54zhlwtFWAJ8eB6DIKpUA/nUQ==",
+      "type": "package",
+      "path": "runtime.linux-x64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.linux-x64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.linux-x64.runtime.native.system.io.ports.nuspec",
+        "runtimes/linux-x64/native/System.IO.Ports.Native.so",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "EEOio7SVYqxtBqTyxPsnxJH31z9tUTpQ3bHhNSsiVhojWZWkM9KPJc04TI8eXZR214u6sRLSDGud3wq9bBtBug==",
+      "type": "package",
+      "path": "runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.native.system.io.ports.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.osx-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "qBemYluDOdC505gx8XdU9R08FFvPjT5Am04eC5wNE/zDCnvl7K4P3+dkpxFYt6y1IHm3PwZnUaLd9NU46oUBGA==",
+      "type": "package",
+      "path": "runtime.osx-x64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.osx-x64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "runtime.osx-x64.runtime.native.system.io.ports.nuspec",
+        "runtimes/osx-x64/native/System.IO.Ports.Native.dylib",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.IO.Ports/4.6.0-preview3.19128.7": {
+      "sha512": "4JmCoYXHNNw+voXJnkgg5CZj6Er2s5vgFrKgvCzAgNQD5+zxBAGc+qPFQleIi0o4g7/hDGZDN1qdqNUJppAdHQ==",
+      "type": "package",
+      "path": "system.io.ports/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.IO.Ports.dll",
+        "lib/net461/System.IO.Ports.xml",
+        "lib/netstandard2.0/System.IO.Ports.dll",
+        "lib/netstandard2.0/System.IO.Ports.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net461/System.IO.Ports.dll",
+        "ref/net461/System.IO.Ports.xml",
+        "ref/net472/System.IO.Ports.dll",
+        "ref/net472/System.IO.Ports.xml",
+        "ref/netstandard2.0/System.IO.Ports.dll",
+        "ref/netstandard2.0/System.IO.Ports.xml",
+        "ref/uap10.0.16299/_._",
+        "runtimes/linux/lib/netstandard2.0/System.IO.Ports.dll",
+        "runtimes/linux/lib/netstandard2.0/System.IO.Ports.xml",
+        "runtimes/osx/lib/netstandard2.0/System.IO.Ports.dll",
+        "runtimes/osx/lib/netstandard2.0/System.IO.Ports.xml",
+        "runtimes/win/lib/netstandard2.0/System.IO.Ports.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.Ports.xml",
+        "runtimes/win/lib/uap10.0.16299/_._",
+        "system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.io.ports.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Security.AccessControl/4.6.0-preview3.19128.7": {
+      "sha512": "/Hj/VC24ztOXRqDhNpPEQXBARnvNSj7lXGlduj8YScdKUu0ZsYYR2lKh/v7qSvXBGqXqsozxAIRZwmiBu4rxXQ==",
+      "type": "package",
+      "path": "system.security.accesscontrol/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/System.Security.AccessControl.dll",
+        "lib/net461/System.Security.AccessControl.dll",
+        "lib/net461/System.Security.AccessControl.xml",
+        "lib/netstandard1.3/System.Security.AccessControl.dll",
+        "lib/netstandard2.0/System.Security.AccessControl.dll",
+        "lib/netstandard2.0/System.Security.AccessControl.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net46/System.Security.AccessControl.dll",
+        "ref/net461/System.Security.AccessControl.dll",
+        "ref/net461/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/System.Security.AccessControl.dll",
+        "ref/netstandard1.3/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/de/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/es/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/fr/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/it/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/ja/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/ko/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/ru/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/zh-hans/System.Security.AccessControl.xml",
+        "ref/netstandard1.3/zh-hant/System.Security.AccessControl.xml",
+        "ref/netstandard2.0/System.Security.AccessControl.dll",
+        "ref/netstandard2.0/System.Security.AccessControl.xml",
+        "ref/uap10.0.16299/_._",
+        "runtimes/win/lib/net46/System.Security.AccessControl.dll",
+        "runtimes/win/lib/net461/System.Security.AccessControl.dll",
+        "runtimes/win/lib/net461/System.Security.AccessControl.xml",
+        "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.xml",
+        "runtimes/win/lib/netstandard1.3/System.Security.AccessControl.dll",
+        "runtimes/win/lib/uap10.0.16299/_._",
+        "system.security.accesscontrol.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.security.accesscontrol.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
+      "sha512": "3UV2zC9MaLIGQB3x/4cjB4gZxHTDQHf0xW1w0csnT/9kBHz1J8AeW4rashgv+887KjbgDY6csptuR9u59WqJFA==",
+      "type": "package",
+      "path": "system.security.principal.windows/4.6.0-preview3.19128.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/System.Security.Principal.Windows.dll",
+        "lib/net461/System.Security.Principal.Windows.dll",
+        "lib/net461/System.Security.Principal.Windows.xml",
+        "lib/netstandard1.3/System.Security.Principal.Windows.dll",
+        "lib/netstandard2.0/System.Security.Principal.Windows.dll",
+        "lib/netstandard2.0/System.Security.Principal.Windows.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net46/System.Security.Principal.Windows.dll",
+        "ref/net461/System.Security.Principal.Windows.dll",
+        "ref/net461/System.Security.Principal.Windows.xml",
+        "ref/netcoreapp3.0/System.Security.Principal.Windows.dll",
+        "ref/netcoreapp3.0/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/System.Security.Principal.Windows.dll",
+        "ref/netstandard1.3/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/de/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/es/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/fr/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/it/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/ja/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/ko/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/ru/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/zh-hans/System.Security.Principal.Windows.xml",
+        "ref/netstandard1.3/zh-hant/System.Security.Principal.Windows.xml",
+        "ref/netstandard2.0/System.Security.Principal.Windows.dll",
+        "ref/netstandard2.0/System.Security.Principal.Windows.xml",
+        "ref/uap10.0.16299/_._",
+        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
+        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
+        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
+        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
+        "runtimes/win/lib/net46/System.Security.Principal.Windows.dll",
+        "runtimes/win/lib/net461/System.Security.Principal.Windows.dll",
+        "runtimes/win/lib/net461/System.Security.Principal.Windows.xml",
+        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
+        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
+        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
+        "runtimes/win/lib/netstandard1.3/System.Security.Principal.Windows.dll",
+        "runtimes/win/lib/uap10.0.16299/_._",
+        "system.security.principal.windows.4.6.0-preview3.19128.7.nupkg.sha512",
+        "system.security.principal.windows.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "YamlDotNet/6.0.0": {
+      "sha512": "Y198v1lh0rda2G8nGZMMClvrS88JQkdqRfZEDY/OrlGjmJujSXoh6eHG23vPC3N7xdQQtl9aFb3ekj/ijWETww==",
+      "type": "package",
+      "path": "yamldotnet/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/YamlDotNet.dll",
+        "lib/net20/YamlDotNet.xml",
+        "lib/net35-client/YamlDotNet.dll",
+        "lib/net35-client/YamlDotNet.xml",
+        "lib/net35/YamlDotNet.dll",
+        "lib/net35/YamlDotNet.xml",
+        "lib/net45/YamlDotNet.dll",
+        "lib/net45/YamlDotNet.xml",
+        "lib/netstandard1.3/YamlDotNet.dll",
+        "lib/netstandard1.3/YamlDotNet.xml",
+        "yamldotnet.6.0.0.nupkg.sha512",
+        "yamldotnet.nuspec"
+      ]
+    },
+    "hedgehog.controller.core/1.0.0": {
+      "type": "project",
+      "path": "../hedgehog.controller.core/hedgehog.controller.core.csproj",
+      "msbuildProject": "../hedgehog.controller.core/hedgehog.controller.core.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.0": [
+      "Microsoft.NETCore.Platforms >= 3.0.0-preview3.19128.7",
+      "Microsoft.WindowsDesktop.App >= 3.0.0-preview3-27504-2",
+      "hedgehog.controller.core >= 1.0.0",
+      "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost >= 3.0.0-preview3-27503-5"
+    ]
+  },
+  "packageFolders": {
+    "/home/charles/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/charles/src/hedgehog.controller/dotnet/hedgehog.controller.cli/hedgehog.controller.cli.csproj",
+      "projectName": "hedgehog.controller.cli",
+      "projectPath": "/home/charles/src/hedgehog.controller/dotnet/hedgehog.controller.cli/hedgehog.controller.cli.csproj",
+      "packagesPath": "/home/charles/.nuget/packages/",
+      "outputPath": "/home/charles/src/hedgehog.controller/dotnet/hedgehog.controller.cli/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/charles/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "projectReferences": {
+            "/home/charles/src/hedgehog.controller/dotnet/hedgehog.controller.core/hedgehog.controller.core.csproj": {
+              "projectPath": "/home/charles/src/hedgehog.controller/dotnet/hedgehog.controller.core/hedgehog.controller.core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.0.0-preview3.19128.7, )",
+            "autoReferenced": true
+          },
+          "Microsoft.WindowsDesktop.App": {
+            "include": "None",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.0.0-preview3-27504-2, )",
+            "autoReferenced": true
+          },
+          "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost": {
+            "include": "None",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.0.0-preview3-27503-5, )",
+            "autoReferenced": true
+          }
+        },
+        "imports": [
+          "net461"
+        ],
+        "assetTargetFallback": true,
+        "warn": true
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": "ce4fdf482d325f23cfb435c5345a4db585fe16e7"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "hedgehog.controller.cli/1.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
+          "Microsoft.WindowsDesktop.App": "3.0.0-preview3-27504-2",
+          "hedgehog.controller.core": "1.0.0",
+          "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost": "3.0.0-preview3-27503-5"
+        },
+        "runtime": {
+          "hedgehog.controller.cli.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {},
+      "Microsoft.NETCore.Targets/2.0.0": {},
+      "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
+        "dependencies": {
+          "System.Security.AccessControl": "4.6.0-preview3.19128.7",
+          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+        },
+        "runtimeTargets": {
+          "runtime/unix/lib/_._": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtime/win/lib/_._": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "Microsoft.WindowsDesktop.App/3.0.0-preview3-27504-2": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
+          "Microsoft.NETCore.Targets": "2.0.0"
+        }
+      },
+      "runtime.linux-arm.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "runtimeTargets": {
+          "runtime/linux-arm/native/_._": {
+            "rid": "linux-arm",
+            "assetType": "native"
+          }
+        }
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "runtimeTargets": {
+          "runtime/linux-arm64/native/_._": {
+            "rid": "linux-arm64",
+            "assetType": "native"
+          }
+        }
+      },
+      "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost/3.0.0-preview3-27503-5": {},
+      "runtime.linux-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "runtimeTargets": {
+          "runtime/linux-x64/native/_._": {
+            "rid": "linux-x64",
+            "assetType": "native"
+          }
+        }
+      },
+      "runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "dependencies": {
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7"
+        }
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+        "runtimeTargets": {
+          "runtime/osx-x64/native/_._": {
+            "rid": "osx-x64",
+            "assetType": "native"
+          }
+        }
+      },
+      "System.IO.Ports/4.6.0-preview3.19128.7": {
+        "dependencies": {
+          "Microsoft.Win32.Registry": "4.6.0-preview3.19128.7",
+          "runtime.native.System.IO.Ports": "4.6.0-preview3.19128.7"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IO.Ports.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.7.19.12807"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard2.0/System.IO.Ports.dll": {
+            "rid": "linux",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.7.19.12807"
+          },
+          "runtimes/osx/lib/netstandard2.0/System.IO.Ports.dll": {
+            "rid": "osx",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.7.19.12807"
+          },
+          "runtimes/win/lib/netstandard2.0/System.IO.Ports.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.7.19.12807"
+          }
+        }
+      },
+      "System.Security.AccessControl/4.6.0-preview3.19128.7": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview3.19128.7",
+          "System.Security.Principal.Windows": "4.6.0-preview3.19128.7"
+        },
+        "runtimeTargets": {
+          "runtime/win/lib/_._": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
+        "runtimeTargets": {
+          "runtime/unix/lib/_._": {
+            "rid": "unix",
+            "assetType": "runtime"
+          },
+          "runtime/win/lib/_._": {
+            "rid": "win",
+            "assetType": "runtime"
+          }
+        }
+      },
+      "YamlDotNet/6.0.0": {
+        "runtime": {
+          "lib/netstandard1.3/YamlDotNet.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "hedgehog.controller.core/1.0.0": {
+        "dependencies": {
+          "System.IO.Ports": "4.6.0-preview3.19128.7",
+          "YamlDotNet": "6.0.0"
+        },
+        "runtime": {
+          "hedgehog.controller.core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "hedgehog.controller.cli/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4/k52fBHvM1RNPoBMik0Y3wIovsUGaTadNGH75iLGjQCJPRq2UBivEkhYrYkIFnu+K9kTYJcmXCDF6SFzMBrqA==",
+      "path": "microsoft.netcore.platforms/3.0.0-preview3.19128.7",
+      "hashPath": "microsoft.netcore.platforms.3.0.0-preview3.19128.7.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Targets/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-odP/tJj1z6GylFpNo7pMtbd/xQgTC3Ex2If63dRTL38bBNMwsBnJ+RceUIyHdRBC0oik/3NehYT+oECwBhIM3Q==",
+      "path": "microsoft.netcore.targets/2.0.0",
+      "hashPath": "microsoft.netcore.targets.2.0.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.Registry/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nEbjnXltvnv6Irrt4NWt0+VKE7wXef8kgCmeTs7ro8zH/qwUkhKtJXPj5JGWSIz7sQ6UfmOkvZ3a+3DcrEua5Q==",
+      "path": "microsoft.win32.registry/4.6.0-preview3.19128.7",
+      "hashPath": "microsoft.win32.registry.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "Microsoft.WindowsDesktop.App/3.0.0-preview3-27504-2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-t7Iw6nkx03aOXgZ7L2ZJLN7hGY7FlUaxIyH6UbGhjHCJABxfV8Bx3xOe6E63xa1HVeoccCAdNPctTX2s2zj5SQ==",
+      "path": "microsoft.windowsdesktop.app/3.0.0-preview3-27504-2",
+      "hashPath": "microsoft.windowsdesktop.app.3.0.0-preview3-27504-2.nupkg.sha512"
+    },
+    "runtime.linux-arm.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O+h4jlz8SPmYqSMZmg1WBQsGdgL47vRguu3yCDG1QQJoiMUUX/s2B8eiA3n7iDlezPzqvkvpfopZj54OOMOBeA==",
+      "path": "runtime.linux-arm.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "runtime.linux-arm.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "runtime.linux-arm64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iTciB6E5+0cKkNOHiYalGjh/IcIZPYuz7jUAzu+Dyqqx7HM+vF+lGeQOi8Q8LOmDfTo6wNaWM76gvOTxMqAkNQ==",
+      "path": "runtime.linux-arm64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "runtime.linux-arm64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "runtime.linux-x64.Microsoft.NETCore.DotNetAppHost/3.0.0-preview3-27503-5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-31D0GQdLD2jqiBt/1w9vZnRZbEaJqS8n/du9VUs5lz9YZAuVrwwD28SxJmplEo+woSkXbYvaCZbuWeuzcksDGA==",
+      "path": "runtime.linux-x64.microsoft.netcore.dotnetapphost/3.0.0-preview3-27503-5",
+      "hashPath": "runtime.linux-x64.microsoft.netcore.dotnetapphost.3.0.0-preview3-27503-5.nupkg.sha512"
+    },
+    "runtime.linux-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ECpad3RVtmJUiMRQsZ9YcOKUcZdA+bN6eFDtlVjvSpucy61lzsB7mNp3t7TeA54zhlwtFWAJ8eB6DIKpUA/nUQ==",
+      "path": "runtime.linux-x64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "runtime.linux-x64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EEOio7SVYqxtBqTyxPsnxJH31z9tUTpQ3bHhNSsiVhojWZWkM9KPJc04TI8eXZR214u6sRLSDGud3wq9bBtBug==",
+      "path": "runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "runtime.osx-x64.runtime.native.System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qBemYluDOdC505gx8XdU9R08FFvPjT5Am04eC5wNE/zDCnvl7K4P3+dkpxFYt6y1IHm3PwZnUaLd9NU46oUBGA==",
+      "path": "runtime.osx-x64.runtime.native.system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "runtime.osx-x64.runtime.native.system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "System.IO.Ports/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4JmCoYXHNNw+voXJnkgg5CZj6Er2s5vgFrKgvCzAgNQD5+zxBAGc+qPFQleIi0o4g7/hDGZDN1qdqNUJppAdHQ==",
+      "path": "system.io.ports/4.6.0-preview3.19128.7",
+      "hashPath": "system.io.ports.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "System.Security.AccessControl/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/Hj/VC24ztOXRqDhNpPEQXBARnvNSj7lXGlduj8YScdKUu0ZsYYR2lKh/v7qSvXBGqXqsozxAIRZwmiBu4rxXQ==",
+      "path": "system.security.accesscontrol/4.6.0-preview3.19128.7",
+      "hashPath": "system.security.accesscontrol.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "System.Security.Principal.Windows/4.6.0-preview3.19128.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3UV2zC9MaLIGQB3x/4cjB4gZxHTDQHf0xW1w0csnT/9kBHz1J8AeW4rashgv+887KjbgDY6csptuR9u59WqJFA==",
+      "path": "system.security.principal.windows/4.6.0-preview3.19128.7",
+      "hashPath": "system.security.principal.windows.4.6.0-preview3.19128.7.nupkg.sha512"
+    },
+    "YamlDotNet/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y198v1lh0rda2G8nGZMMClvrS88JQkdqRfZEDY/OrlGjmJujSXoh6eHG23vPC3N7xdQQtl9aFb3ekj/ijWETww==",
+      "path": "yamldotnet/6.0.0",
+      "hashPath": "yamldotnet.6.0.0.nupkg.sha512"
+    },
+    "hedgehog.controller.core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

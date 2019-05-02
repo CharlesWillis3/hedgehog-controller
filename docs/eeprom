@@ -1,0 +1,69 @@
+struct Device {
+    byte f_flags;
+    byte n_joysticks;
+    byte n_modes;
+    byte n_blocks;
+}
+
+struct Joystick {
+    byte n_buttons,
+    byte n_hats,
+    byte f_axes,
+    byte d
+}
+
+struct DigitalAction {
+    byte action[7:4]/flags[3:0],
+    byte param$0,
+    byte param$1,
+}
+
+
+struct ModeHeader {
+    byte flags4_joystick_id4;
+    byte joystick_btn;
+    byte pixelid4_r4;
+    byte g4_b4;
+}
+
++++++(1024)++EEPROM+++++++++++++
+Offset (Size)
+=========HEADER
+0x000   (4) : Device
+0x004   (4) : Joystick 0
+0x008   (4) : Joystick 1
+0x00C   (4) : Joystick 2
+0x010   (4) : Joystick 3
+=========MODE 0
+0x014 (245) : ++MODE PAGE++
+=========MODE 1
+0x109 (245) : ++MODE PAGE++
+=========MODE 2
+0x1FE (245) : ++MODE PAGE++
+=========MODE 3
+0x2F3 (245) : ++MODE PAGE++
+[0x3E7 LAST BYTE]
+=========UNUSED
+0x3E8  (23) Unused
+
+++++(245)++MODE+PAGE++++++++++++
+======(4)==Header
+0x000 (4) : ModeHeader
+====(216)==Digital Buttons (x36)
+0x004 (3) : Btn0 DigitalAction0
+0x007 (3) : Btn0 DigitalAction1
+0x00A (3) : Btn1 DigitalAction0
+0x00D (3) : Btn1 DigitalAction1
+...
+0x0DB
+=====(24)==Analog Axes (x8)
+0x0DC (3) : X AnalogAction0
+0x0D3 (3) : Y AnalogAction0
+0x0D6 (3) : Z AnalogAction0
+0x0D9 (3) : rX AnalogAction0
+0x0E2 (3) : rY AnalogAction0
+0x0E5 (3) : rZ AnalogAction0
+0x0E8 (3) : rudder AnalogAction0
+0x0F1 (3) : throttle AnalogAction0
+======(1)==Footer
+0x0F4 (1) : ModeFooter

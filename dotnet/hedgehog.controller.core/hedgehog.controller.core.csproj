@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../hedgehog.controller.interop/*.cs.h" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="4.6.0-preview3.19128.7" />
+    <PackageReference Include="YamlDotNEt" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>

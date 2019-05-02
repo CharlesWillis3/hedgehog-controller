@@ -1,0 +1,3 @@
+// from hedgehog.controller root
+
+env CPATH=$(cd src/common; pwd):$CPATH

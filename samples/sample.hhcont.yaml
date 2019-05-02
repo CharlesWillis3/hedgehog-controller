@@ -1,0 +1,44 @@
+device:
+  joysticks:
+    - id: 0x00
+      num-buttons: 50
+      num-hats: 2
+      axes: [x, "y", z, rx, ry, rz, rudder, throttle]
+    - id: 0x01
+      num-buttons: 50
+  keyboard: true
+  mouse: true
+  minimum-hardware:
+    num-digitals: 20,
+    num-analogs: 0,
+    num-neopixels: 2
+profile:
+  mode-fallback: auto
+  modes:
+    - id: 0x00
+      digitals:
+        - 0:
+            - action: keyboard
+              flags: [chain]
+              $0: LEFT-CTRL
+            - action: joy-button
+              flags: [fire]
+              $0: 0
+              $1: 50
+        - 1:
+            action: joybutton
+            $0: 0
+            $1: 1
+        - 2:
+            action: mode
+            $0: 1 
+    - id: 0x01
+      digitals:
+        - 0:
+            - action: fallback
+        - 1:
+            - action: joybutton
+              $0: 1
+              $1: 2
+        - 2:
+            - action: none

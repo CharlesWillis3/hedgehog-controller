@@ -1,0 +1,16 @@
+﻿!HedgehogController
+Name: Sample Configuration
+Device:
+  f_flags: keyboard, joystick
+  n_joysticks: 2
+  n_modes: 2
+  n_blocks: 0
+Joysticks:
+- n_buttons: 64
+  n_hats: 0
+  f_axes: xyz
+  d: 0
+- n_buttons: 50
+  n_hats: 0
+  f_axes: none
+  d: 0
