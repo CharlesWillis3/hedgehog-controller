@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "\"/home/charles/.platformio/packages/toolchain-atmelavr/bin/avr-gcc\" -mmcu=atmega32u4",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "forcedInclude": ["include/hhenum.h"]
+        }
+    ],
+    "version": 4
+}

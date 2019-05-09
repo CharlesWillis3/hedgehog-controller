@@ -24,6 +24,29 @@ namespace hedgehog.controller.core
                 return false;
             }
 
+            return true;
+        }
+
+        public void ReadJoysticks()
+        {
+            this.Send(HHSerial.JOYSTICKS_READ);
+
+            using (var m = new ByteMarshaller<Joystick>())
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    if (this.WaitForBytes(4, out byte[] result2))
+                    {
+                        Joystick j = m.ToStructure(result2);
+                        Console.WriteLine("Recevied Joystick " + x);
+                        j.PrettyPrint();
+                    }
+                }
+            }
+        }
+
+        public void ReadDevice()
+        {
             Device device = default;
 
             this.Send(HHSerial.DEVICE_READ);
@@ -41,26 +64,32 @@ namespace hedgehog.controller.core
             {
                 Console.WriteLine("Failed waiting for Device bytes");
             }
+        }
 
-            this.Send(HHSerial.JOYSTICKS_READ);
-
-            using (var m = new ByteMarshaller<Joystick>())
+        public void ReportButtons()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press any key to stop");
+            this.Send(HHSerial.BUTTONS_ID);
+            
+            while (!Console.KeyAvailable)
             {
-                for (int x = 0; x < 4; x++)
-                {
-                    if (this.WaitForBytes(4, out byte[] result2))
-                    {
-                        Joystick j = m.ToStructure(result2);
-                        Console.WriteLine("Recevied Joystick " + x);
-                        j.PrettyPrint();
-                    }
-                }
+                var rcvd = this.SerialPort.ReadLine();
+                Console.WriteLine(rcvd);
             }
 
-            this.Send(HHSerial.DEBUG_END);
-            this.WaitForMessage(HHSerial.MODE_RUN);
+            Console.ReadKey(true);
 
-            return true;
+            this.Send(HHSerial.READY);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.Send(HHSerial.DEBUG_END);
+                this.WaitForMessage(HHSerial.MODE_RUN);
+            }
         }
     }
 }

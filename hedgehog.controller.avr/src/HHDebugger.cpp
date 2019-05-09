@@ -1,20 +1,17 @@
 #include "HHDebugger.h"
 
-HHDebugger::HHDebugger()
+HHDebugger::HHDebugger(const HHMomentaryMonitor &momon) : _momon{momon}
 {
 }
 
 void HHDebugger::startDebugging()
 {
-
-    Serial.write(HHSerial::MODE_DEBUG);
+    HHS_SEND_MSG(HHSerial::MODE_DEBUG);
     _isDebugging = true;
 
-    uint8_t rcvd;
-    while (Serial.readBytes(&rcvd, 1) && rcvd != HHSerial::DEBUG_END)
+    HHSerial rcvd;
+    while ((rcvd = HHS_BLOCK) != HHSerial::DEBUG_END)
     {
-        size_t n_bytes = Serial.readBytes(&rcvd, 1);
-
         switch (rcvd)
         {
         case HHSerial::DEVICE_READ:
@@ -23,8 +20,11 @@ void HHDebugger::startDebugging()
         case HHSerial::JOYSTICKS_READ:
             _sendJoysticks();
             break;
+        case HHSerial::BUTTONS_ID:
+            _reportButtons();
+            break;
         default:
-            Serial.write(HHSerial::ERROR);
+            HHSM_ERROR;
             break;
         }
     }
@@ -32,14 +32,10 @@ void HHDebugger::startDebugging()
     _isDebugging = false;
 }
 
-void HHDebugger::updateNeoPixels()
-{
-}
-
 void HHDebugger::_sendDevice()
 {
     uint8_t snd;
-    for (int x = HHOffset::DEVICE; x < sizeof(device_t); x++)
+    for (unsigned int x = HHOffset::DEVICE; x < sizeof(device_t); x++)
     {
         snd = EEPROM.read(x);
         Serial.write(snd);
@@ -51,10 +47,26 @@ void HHDebugger::_sendJoysticks()
     uint8_t snd;
     for (int x = 0; x < 4; x++)
     {
-        for (int y = 0; y < sizeof(joystick_t); y++)
+        for (unsigned int y = 0; y < sizeof(joystick_t); y++)
         {
             snd = EEPROM.read(HHOffset::JOYSTICK0 + (x * sizeof(joystick_t) + y));
             Serial.write(snd);
         }
     }
+}
+
+void HHDebugger::reportButtons()
+{
+    _reportButtons();
+}
+
+void HHDebugger::_reportButtons()
+{
+    Serial.write(uint8_t(0));
+    Serial.write(_momon.getPortA());
+    Serial.write(_momon.getPortB());
+    Serial.write(_momon.readIntCapA());
+    Serial.write(_momon.readIntCapB());
+    Serial.write(_momon.readIntPinA());
+    Serial.write(_momon.readIntPinB());
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using hedgehog.controller.core;
 
@@ -11,64 +12,21 @@ namespace hedgehog.controller.cli
 
         static void Main(string[] args)
         {
-            while (true)
+            Carte carte = new Carte("Hedgehog Controller Configurator");
+            bool result = true;
+            while (result)
             {
-                Console.WriteLine("Hedgehog Controller Configurator");
-                Console.WriteLine("================================");
-
-                Console.WriteLine($"0: Load Configuration from File [{SelectedConfig?.Controller.Name}]");
-                Console.WriteLine($"1: Select Hedgehog Port [{SelectedPort}]");
-                Console.WriteLine("2: Tickle the Hedgehog");
-                Console.WriteLine("D: Debug the Hedgehog");
-                Console.WriteLine("S: Write Sample Configuration File");
-                Console.WriteLine("R: Reset the Hedgehog");
-                Console.WriteLine("X: Exit");
-
-
-                Console.Write("Press the key corresponding to the desired option: ");
-                var option = Console.ReadKey();
-                Console.WriteLine();
-
-                try
+                var menu = new Dictionary<char, (string, Action)>()
                 {
-                    switch (option.KeyChar)
-                    {
-                        case '0':
-                            Program.RunLoadConfig();
-                            break;
-                        case '1':
-                            Program.RunSelectPort();
-                            break;
-                        case '2':
-                            Program.RunProgrammer();
-                            break;
-                        case 'd':
-                        case 'D':
-                            Program.RunDebugger();
-                            break;
-                        case 's':
-                        case 'S':
-                            Program.RunWriteSampleConfig();
-                            break;
-                        case 'r':
-                        case 'R':
-                            Program.RunReset();
-                            break;
-                        case 'x':
-                        case 'X':
-                            Console.WriteLine("Okaybye");
-                            return;
-                        default:
-                            Console.WriteLine("Computer Says 'No'");
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR: " + ex.Message);
-                }
+                    {'0', ($"Load Configuration from File [{SelectedConfig?.Controller.Name}]", Program.RunLoadConfig)},
+                    {'1', ($"Select Hedgehog Port [{SelectedPort}]", () => Program.RunSelectPort())},
+                    {'2', ("Tickle the Hedgehog", Program.RunProgrammer)},
+                    {'D', ("Debug the Hedgehog", Program.RunDebugger)},
+                    {'S', ("Write Sample Configuration File", Program.RunWriteSampleConfig)},
+                    {'R', ("Reset the Hedgehog", Program.RunReset)}
+                };
 
-                Console.WriteLine();
+                result = carte.ShowMenu(menu);
             }
         }
 
@@ -116,11 +74,24 @@ namespace hedgehog.controller.cli
             {
                 if (debugger.Start())
                 {
-                    Console.WriteLine("Done debugging.");
+                    Console.WriteLine("Debugging started.");
                 }
                 else
                 {
                     Console.WriteLine("Debugging failed. :-o");
+                }
+
+                var menu = new Dictionary<char, (string, Action)>()
+                {
+                    {'D', ("Get Device Info", debugger.ReadDevice)},
+                    {'J', ("Get Joystick Configuration", debugger.ReadJoysticks)},
+                    {'B', ("Start Button ID", debugger.ReportButtons)}
+                };
+
+                Carte carte = new Carte("Debugging");
+
+                while (carte.ShowMenu(menu))
+                {
                 }
             }
         }
@@ -138,28 +109,22 @@ namespace hedgehog.controller.cli
         {
             string[] ports = Programmer.GetPorts();
 
-            Console.WriteLine("Serial Ports");
-            Console.WriteLine("============");
+            Carte carte = new Carte("Serial Ports");
+
+            var menu = new Dictionary<char, (string, Action)>();
 
             for (int x = 0; x < ports.Length; x++)
             {
-                Console.WriteLine($"{x}: {ports[x]}");
+                string p = ports[x];
+                menu.Add(x.ToString()[0], (p, () => SelectPort(p)));
             }
 
-            Console.WriteLine();
-            Console.Write("Which port?: ");
-            var selection = Console.ReadLine();
+            return carte.ShowMenu(menu);
 
-            if (int.TryParse(selection, out int s) && s >= 0 && s < ports.Length)
+            void SelectPort(string port)
             {
-                SelectedPort = ports[s];
+                SelectedPort = port;
                 Console.WriteLine($"Selected port: {SelectedPort}");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"ERROR: Could not parse port selection: {selection}");
-                return false;
             }
         }
 

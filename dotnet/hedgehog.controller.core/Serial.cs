@@ -134,7 +134,7 @@ namespace hedgehog.controller.core
                 case HHSerial.FAULT:
                     throw new ApplicationException("The device has faulted. Cannot continue.");
                 default:
-                    throw new InvalidOperationException($"An unexpected reply was received. Expected: 0x{waitFor:X}. Actual: 0x{reply:X}");
+                    throw new InvalidOperationException($"An unexpected reply was received. Expected: 0x{waitFor:X}[{(HHSerial)waitFor}]. Actual: 0x{reply:X}[{(HHSerial)reply}]");
             }
         }
 
