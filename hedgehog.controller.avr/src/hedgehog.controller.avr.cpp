@@ -2,9 +2,8 @@
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
-#include <TimerOne.h>
 #include "HedgehogController.h"
-#include "HHMomentaryMonitor.h"
+#include "HHMCP23017.h"
 #include "HHProgrammer.h"
 #include "HHDebugger.h"
 
@@ -20,11 +19,10 @@
 state_t volatile state;
 
 Adafruit_NeoPixel led{LED_COUNT, LED_PIN, NEO_RGB};
-HHMomentaryMonitor momon{0x20, INTA_PIN, INTB_PIN, state};
+HHMCP23017 momon{0x20, INTA_PIN, INTB_PIN, state};
 HHProgrammer programmer{DIGITALS, ANALOGS, NEOPIXELS};
-HHDebugger debugger{momon};
+// HHDebugger debugger{};
 
-void stopTimerResetLed();
 void resetLedColor();
 
 void setup()
@@ -38,9 +36,6 @@ void setup()
     led.show();
 
     momon.initialize();
-
-    Timer1.initialize(1000UL * 1000UL * 2);
-    Timer1.attachInterrupt(resetLedColor);
 
     led.setPixelColor(0, 0, 0, 255);
     led.show();
@@ -66,11 +61,11 @@ void loop()
                     led.show();
                     programmer.startProgramming();
                     break;
-                case HHSerial::MODE_DEBUG:
-                    led.setPixelColor(0, 255, 0, 255);
-                    led.show();
-                    debugger.startDebugging();
-                    break;
+                // case HHSerial::MODE_DEBUG:
+                //     led.setPixelColor(0, 255, 0, 255);
+                //     led.show();
+                //     debugger.startDebugging();
+                //     break;
                 case HHSerial::MODE_RUN:
                     Serial.write(HHSerial::MODE_RUN);
                     break;
@@ -82,26 +77,58 @@ void loop()
         Serial.write(HHSerial::MODE_RUN);
     }
 
+    if (state.hasUpdate_portA)
+    {
+        Serial.println("--PORT A--");
+        BYTE_LOOP(x, 8)
+        {
+            Serial.print(x);
+            Serial.print(": ");
+            Serial.println(state.portA[x], HEX);
+        }
+
+        if (state.portA[0] == IB_FALLING)
+        {
+            Serial.println("A0 FALLING");
+            state.updateLeds(0, 255, 0);
+        }
+        else if (state.portA[0] == IB_RISING)
+        {
+            Serial.println("A0 RISING");
+            state.updateLeds(0, 255, 255);
+        }
+
+        state.hasUpdate_portA = false;
+    }
+    
+    if (state.hasUpdate_portB)
+    {
+        Serial.println("++PORT B++");
+        BYTE_LOOP(x, 8)
+        {
+            Serial.print(x);
+            Serial.print(": ");
+            Serial.println(state.portB[x], HEX);
+        }
+
+        if (state.portB[0] == IB_FALLING)
+        {
+            Serial.println("B0 FALLING");
+            state.updateLeds(255, 255, 0);
+        }
+        else if (state.portB[0] == IB_RISING)
+        {
+            Serial.println("B1 RISING");
+            state.updateLeds(0, 0, 255);
+        }
+
+        state.hasUpdate_portB = false;
+    }
+
     if (state.updateLed)
     {
-        Timer1.restart();
         led.setPixelColor(0, state.red, state.green, state.blue);
         led.show();
         state.updateLed = false;
     }
-
-    if (state.updateIntCap)
-    {
-        Serial.println();
-        Serial.print("INTCAPA: ");
-        Serial.println(state.intCapA, BIN);
-        Serial.print("INTCAPB: ");
-        Serial.println(state.intCapB, BIN);
-        state.updateIntCap = false;
-    }
-}
-
-void resetLedColor()
-{
-    state.updateLeds(0, 0, 255);
 }
