@@ -9,20 +9,15 @@
 class HHMCP23017
 {
 public:
-    HHMCP23017(
-        uint8_t addr,
-        uint8_t intPinA,
-        uint8_t intPinB,
-        volatile state_t& state);
-    static void ISRA();
-    static void ISRB();
+    HHMCP23017(uint8_t addr, volatile state_t& state);
+
     uint8_t getPortA() const;
     uint8_t getPortB() const;
     int readIntPinA() const;
     int readIntPinB() const;
-    uint8_t readIntCapA() const;
-    uint8_t readIntCapB() const;
     void initialize();
+    void poll();
+    void update(uint64_t curr_millis);
 
 private:
     enum _reg_addr : uint8_t
@@ -31,17 +26,14 @@ private:
         GPINTENB = 0x05,
         GPPUA = 0x0C,
         GPPUB = 0x0D,
-        INTCAPA = 0x10,
-        INTCAPB = 0x11,
         GPIOA = 0x12,
         GPIOB = 0x13,
-    };
+    }; 
 
-    static HHMCP23017* _instance;
+    const uint64_t _poll_interval_ms = 5;
+    uint64_t _prev_millis;
 
     uint8_t _addr;
-    uint8_t _intPinA;
-    uint8_t _intPinB;
     volatile state_t& _state;
 
     uint8_t _readRegister(uint8_t reg_addr) const;

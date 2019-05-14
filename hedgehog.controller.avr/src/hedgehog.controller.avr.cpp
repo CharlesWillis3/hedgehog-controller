@@ -2,51 +2,53 @@
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
+#include <TimerOne.h>
 #include "HedgehogController.h"
+#include "HedgehogConfig.h"
 #include "HHMCP23017.h"
 #include "HHProgrammer.h"
 #include "HHDebugger.h"
+#include "HHNeoPixel.h"
 
 #define DIGITALS  (uint8_t)25
 #define ANALOGS   (uint8_t)0
-#define NEOPIXELS (uint8_t)2
 
-#define LED_PIN 4
-#define LED_COUNT 1
-#define INTA_PIN 0
-#define INTB_PIN 1
+state_t volatile globalState;
 
-state_t volatile state;
-
-Adafruit_NeoPixel led{LED_COUNT, LED_PIN, NEO_RGB};
-HHMCP23017 momon{0x20, INTA_PIN, INTB_PIN, state};
-HHProgrammer programmer{DIGITALS, ANALOGS, NEOPIXELS};
+HHMCP23017 momon{0x20, globalState};
+HHProgrammer programmer{DIGITALS, ANALOGS, NEO_PIXEL_COUNT};
 // HHDebugger debugger{};
 
-void resetLedColor();
+HHNeoPixel led;
+
+void pollButtons();
 
 void setup()
 {
+    #ifdef DEBUG
     Serial.begin(9600);
     Serial.setTimeout(2000);
+    #endif
+
+    // OCR0A = 0xAF;
+    // TIMSK0 |= _BV(OCIE0A);
+
+    // Timer1.attachInterrupt(pollButtons);
+    // Timer1.initialize(1000UL * 10);
 
     Wire.begin();
 
-    led.begin();
-    led.show();
-
     momon.initialize();
 
-    led.setPixelColor(0, 0, 0, 255);
-    led.show();
+    led.initialize();
+    led.changeColor(0, 0, 0, 255);
 }
 
 void loop()
 {
     if (Serial.available() && HHS_REQUIRE(HHSerial::HELLO))
     {
-        led.setPixelColor(0, 0, 0, 255);
-        led.show();
+        led.changeColor(0, 0, 0, 255);
 
         HHSM_HELLO;
         HHSM_READY;
@@ -57,8 +59,8 @@ void loop()
             switch (s)
             {
                 case HHSerial::MODE_PROGRAMMING:
-                    led.setPixelColor(0, 0, 255, 0);
-                    led.show();
+                    led.changeColor(0, 0, 255, 0);
+
                     programmer.startProgramming();
                     break;
                 // case HHSerial::MODE_DEBUG:
@@ -77,58 +79,60 @@ void loop()
         Serial.write(HHSerial::MODE_RUN);
     }
 
-    if (state.hasUpdate_portA)
+    // Serial.print("Poll Count: ");
+    // Serial.println(state.pollCount, DEC);
+
+    momon.update(millis());
+
+    BYTE_LOOP(x, 16)
     {
-        Serial.println("--PORT A--");
-        BYTE_LOOP(x, 8)
+        if (globalState.is_button_pressed(x))
         {
-            Serial.print(x);
-            Serial.print(": ");
-            Serial.println(state.portA[x], HEX);
-        }
+            DEBUG_PRINT("BUTTON PRESSED: ");
+            DEBUG_PRINTLN(x);
+            if (x < 8)
+            {
+                globalState.update_leds(255, 0, 255);
 
-        if (state.portA[0] == IB_FALLING)
-        {
-            Serial.println("A0 FALLING");
-            state.updateLeds(0, 255, 0);
+            }
+            else 
+            {
+                globalState.update_leds(0, 255, 255);
+            }
         }
-        else if (state.portA[0] == IB_RISING)
-        {
-            Serial.println("A0 RISING");
-            state.updateLeds(0, 255, 255);
-        }
-
-        state.hasUpdate_portA = false;
-    }
-    
-    if (state.hasUpdate_portB)
-    {
-        Serial.println("++PORT B++");
-        BYTE_LOOP(x, 8)
-        {
-            Serial.print(x);
-            Serial.print(": ");
-            Serial.println(state.portB[x], HEX);
-        }
-
-        if (state.portB[0] == IB_FALLING)
-        {
-            Serial.println("B0 FALLING");
-            state.updateLeds(255, 255, 0);
-        }
-        else if (state.portB[0] == IB_RISING)
-        {
-            Serial.println("B1 RISING");
-            state.updateLeds(0, 0, 255);
-        }
-
-        state.hasUpdate_portB = false;
     }
 
-    if (state.updateLed)
+    if (process_update(globalState.has_update_led))
     {
-        led.setPixelColor(0, state.red, state.green, state.blue);
-        led.show();
-        state.updateLed = false;
+        uint8_t red, green, blue;
+        // {
+        //     HHVolatileReadInterruptLock lock;
+        //     red = globalState.red;
+        //     green = globalState.green;
+        //     blue = globalState.blue;
+        // }
+
+        red = globalState.red;
+        green = globalState.green;
+        blue = globalState.blue;
+
+        led.changeColor(0, red, green, blue);
+        DEBUG_PRINTDEC(red);
+        DEBUG_PRINTDEC(green);
+        DEBUG_PRINTDEC(blue);
     }
+
+    led.refresh();
 }
+
+void pollButtons()
+{
+    HHTimerOneInterruptLock lock{pollButtons};
+    momon.poll();
+}
+
+// SIGNAL(TIMER0_COMPA_vect)
+// {
+//     //momon.poll(curr_millis);
+//     globalState.pollCount += 1;
+// }
