@@ -10,95 +10,60 @@
 #include "HedgehogEnums.h"
 #include "HedgehogData.h"
 #include "HedgehogSerial.h"
+#include "HedgehogConfig.h"
 
+#define __STR_EXPAND(tok) #tok
+#define __STR(tok) __STR_EXPAND(tok)
+#define __CAT(a, b) a ## b
+#define __PORT(x) __CAT(PORT, x)
+#define __DDR(x) __CAT(DDR, x)
+#define __PIN(x) __CAT(PIN, x) 
 #define BYTE_LOOP(x, n) for (uint8_t x = 0; x < n; ++x)
 
-enum InBtnState : uint8_t
-{
-    IB_UP = 0x00,
-    IB_DOWN = 0x01,
-    IB_RISING = 0x10,
-    IB_FALLING = 0x20
-};
-
-inline bool processUpdate(volatile bool& flag);
+typedef uint8_t pin_t;
+typedef uint64_t millis_t;
 
 typedef struct State
 {
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-    bool has_update_led;
+    uint8_t momentaryButtonHistory[__BTN_COUNT] = {0};
 
-    uint32_t pollCount = 0;
-
-    uint8_t momentaryButtonHistory[16] = {0};
-
-    State copy_reset() volatile
+    void update_button_history_inv(uint8_t bank, uint8_t cap) volatile
     {
-        State n;
-        n.red = this->red;
-        n.green = this->green;
-        n.blue = this->blue;
-        n.has_update_led = this->has_update_led;
-        n.pollCount = this->pollCount;
-        memcpy(n.momentaryButtonHistory, const_cast<uint8_t*>(this->momentaryButtonHistory), 16);
-
-        this->has_update_led = false;
-        return n;
-    }
-
-    void update_button(uint8_t id, uint8_t next) volatile
-    {
-        assert(id < 16);
-        volatile uint8_t *button_history = &momentaryButtonHistory[id];
-        *button_history = *button_history << 1;
-        *button_history |= next;
-    }
-
-    void update_buttons_inv(uint8_t low, uint8_t high) volatile
-    {
-        // volatile uint8_t *button_history;
-        BYTE_LOOP(i, 8)
+        assert(bank < __BTN_BANKS);
+        cap = ~cap;
+        BYTE_LOOP(x, 8)
         {
-            // button_history = &momentaryButtonHistory[i];
-            // *button_history = *button_history << 1;
-            // *button_history |= bitRead(low, i);
-
-            momentaryButtonHistory[i] = momentaryButtonHistory[i] << 1;
-            momentaryButtonHistory[i] |= bitRead(low, i) == 0 ? 1 : 0;
-        }
-
-        BYTE_LOOP(j, 8)
-        {
-            // button_history = &momentaryButtonHistory[j + 8];
-            // *button_history = *button_history << 1;
-            // *button_history |= bitRead(high, j);
-
-            momentaryButtonHistory[j + 8] = momentaryButtonHistory[j + 8] << 1;
-            momentaryButtonHistory[j + 8] |= bitRead(high, j) == 0 ? 1 : 0;
+            uint8_t idx = x + (bank * 8);
+            momentaryButtonHistory[idx] = momentaryButtonHistory[idx] << 1;
+            momentaryButtonHistory[idx] |= bitRead(cap, x);
         }
     }
 
     #define MASK 0b11000111
+    #define mask_bits(x) (x & MASK)
 
     uint8_t is_button_pressed(uint8_t id) volatile
     {
-        assert(id < 16);
+        assert(id < __BTN_COUNT);
+
         uint8_t pressed = 0;
-        if ((momentaryButtonHistory[id] & MASK) == 0b00000111){ 
+        if (mask_bits(momentaryButtonHistory[id]) == 0b0000001){ 
             pressed = 1;
             momentaryButtonHistory[id] = 0b11111111;
         }
         return pressed;
     }
 
-    void update_leds(uint8_t red, uint8_t green, uint8_t blue) volatile
+    uint8_t is_button_released(uint8_t id) volatile
     {
-        this->red = red;
-        this->green = green;
-        this->blue = blue;
-        this->has_update_led = true;
+        assert(id < __BTN_COUNT);
+
+        uint8_t released = 0;   
+        if (mask_bits(momentaryButtonHistory[id]) == 0b11000000){ 
+            released = 1;
+            momentaryButtonHistory[id] = 0b00000000;
+        }
+        return released;
     }
 
 } state_t;

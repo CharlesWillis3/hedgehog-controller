@@ -1,47 +1,45 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
-#include <Wire.h>
-#include <TimerOne.h>
 #include "HedgehogController.h"
 #include "HedgehogConfig.h"
-#include "HHMCP23017.h"
 #include "HHProgrammer.h"
 #include "HHDebugger.h"
 #include "HHNeoPixel.h"
 
-#define DIGITALS  (uint8_t)25
-#define ANALOGS   (uint8_t)0
-
 state_t volatile globalState;
 
-HHMCP23017 momon{0x20, globalState};
-HHProgrammer programmer{DIGITALS, ANALOGS, NEO_PIXEL_COUNT};
+#if defined(__USE_BTNM_MUX)
+    #include "HHMuxMonitor.h"
+    HHMuxMonitor muxmon{globalState};
+#endif
+
+HHProgrammer programmer{__BTN_COUNT, 0, NEO_PIXEL_COUNT};
 // HHDebugger debugger{};
 
 HHNeoPixel led;
 
-void pollButtons();
+millis_t last_led_update;
 
 void setup()
 {
-    #ifdef DEBUG
     Serial.begin(9600);
     Serial.setTimeout(2000);
-    #endif
-
-    // OCR0A = 0xAF;
-    // TIMSK0 |= _BV(OCIE0A);
-
-    // Timer1.attachInterrupt(pollButtons);
-    // Timer1.initialize(1000UL * 10);
-
-    Wire.begin();
-
-    momon.initialize();
 
     led.initialize();
     led.changeColor(0, 0, 0, 255);
+    led.refresh();
+
+#if defined(DEBUG)
+    while (Serial.read() != 9)
+    {
+    }
+#endif
+
+#if defined(__USE_BTNM_MUX)
+    muxmon.initialize();
+#endif
+
 }
 
 void loop()
@@ -79,60 +77,55 @@ void loop()
         Serial.write(HHSerial::MODE_RUN);
     }
 
-    // Serial.print("Poll Count: ");
-    // Serial.println(state.pollCount, DEC);
+#if defined(__USE_BTNM_MUX)
 
-    momon.update(millis());
+    muxmon.update(millis());
 
-    BYTE_LOOP(x, 16)
+    BYTE_LOOP(x, __BTN_COUNT)
     {
         if (globalState.is_button_pressed(x))
         {
             DEBUG_PRINT("BUTTON PRESSED: ");
             DEBUG_PRINTLN(x);
-            if (x < 8)
+            if (x < 16)
             {
-                globalState.update_leds(255, 0, 255);
+                led.changeColor(x % 8, 255, 0, 255);
+                last_led_update = millis();
 
             }
             else 
             {
-                globalState.update_leds(0, 255, 255);
+                led.changeColor(x % 8, 0, 255, 255);
+                last_led_update = millis();
+            }
+        }
+
+        if (globalState.is_button_released(x))
+        {
+            DEBUG_PRINT("BUTTON RELEASED: ");
+            DEBUG_PRINTLN(x);
+            if (x < 16)
+            {
+                led.changeColor(x % 8, 0, 255, 0);
+                last_led_update = millis();
+
+            }
+            else 
+            {
+                led.changeColor(x % 8, 255, 0, 0);
+                last_led_update = millis();
             }
         }
     }
+#endif
 
-    if (process_update(globalState.has_update_led))
+    if (millis() - last_led_update >= 2 * 1000)
     {
-        uint8_t red, green, blue;
-        // {
-        //     HHVolatileReadInterruptLock lock;
-        //     red = globalState.red;
-        //     green = globalState.green;
-        //     blue = globalState.blue;
-        // }
-
-        red = globalState.red;
-        green = globalState.green;
-        blue = globalState.blue;
-
-        led.changeColor(0, red, green, blue);
-        DEBUG_PRINTDEC(red);
-        DEBUG_PRINTDEC(green);
-        DEBUG_PRINTDEC(blue);
+        BYTE_LOOP(x, 8)
+        {
+            led.changeColor(x, 0, 0, 255);
+        }
     }
 
     led.refresh();
 }
-
-void pollButtons()
-{
-    HHTimerOneInterruptLock lock{pollButtons};
-    momon.poll();
-}
-
-// SIGNAL(TIMER0_COMPA_vect)
-// {
-//     //momon.poll(curr_millis);
-//     globalState.pollCount += 1;
-// }
