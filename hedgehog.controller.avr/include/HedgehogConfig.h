@@ -1,48 +1,65 @@
 #ifndef HH_CONFIG_H
 #define HH_CONFIG_H
 
-//#define DEBUG //enable/disable serial debug output
-
-#ifdef DEBUG
-    #define DEBUG_PRINT(x) Serial.print(x)
-    #define DEBUG_PRINTDEC(x) Serial.print(x, DEC)
-    #define DEBUG_PRINTBIN(x) Serial.print(x, BIN)
-    #define DEBUG_PRINTLN(x) Serial.println(x)
-#else
-    #define DEBUG_PRINT(x)
-    #define DEBUG_PRINTDEC(x)
-    #define DEBUG_PRINTBIN(x)
-    #define DEBUG_PRINTLN(x)
-#endif
-
-/** LED MODES **/
-
-#define USE_NEOPIXEL
-#ifdef USE_NEOPIXEL
-    #define NEO_PIXEL_COUNT 8
-    #define NEO_PIXEL_PIN 7
-    #define NEO_PIXEL_TYPE NEO_RGB
-#endif
-
 /** BUTTON MODES **/
 
-#define __BTN_COUNT 0
+#define BTN_COUNT 0
 
-#define BTNM_MUX_PORT_1_BANK_4 3
+#define BTNM_NONE 0
+#define BTNM_MUX_PORT_1_BANK_4 1
 
 #define USE_BTN_MODE BTNM_MUX_PORT_1_BANK_4 
 #if USE_BTN_MODE == BTNM_MUX_PORT_1_BANK_4
-    #define BTNM_IN_PORT B
-    #define BTNM_SEL_PORT C
-    #define BTNM_SEL_BIT0 6 
-    #define BTNM_SEL_BIT1 7
+    #define __BTN_IN_PORT B
+    #define __BTN_SEL_PORT D
+    #define __BTN_SEL_BIT_0 0 
+    #define __BTN_SEL_BIT_1 1
 
     #define __USE_BTNM_MUX
+    #define __BTN_UPDATE_INT_MS millis_t(5)
     #define __BTN_PORTS 1
     #define __BTN_BANKS 4
 
-    #undef __BTN_COUNT
-    #define __BTN_COUNT 32 // 8 bits in the port x 4 banks = 32 buttons 
+    #undef BTN_COUNT
+    #define BTN_COUNT 32 // 8 bits in the port x 4 banks = 32 buttons 
+#endif
+
+/** ANALOG MODES **/
+
+#define ANALOG_COUNT 1
+
+/** LED MODES **/
+
+#define LED_COUNT 0
+
+#define LEDM_NONE 0
+#define LEDM_DEMUX_4051 1
+
+#define USE_LED_MODE LEDM_DEMUX_4051
+#if USE_LED_MODE == LEDM_DEMUX_4051
+    #define __LED_SEL_PORT F
+    #define __LED_SEL_BIT_0 5
+    #define __LED_SEL_BIT_1 6
+    #define __LED_SEL_BIT_2 7
+    #define __LED_PWM_PIN pin_t(5)
+
+    #define __USE_LEDM_DEMUX
+    #define __LED_UPDATE_INT_MS millis_t(5)
+
+    #undef LED_COUNT
+    #define LED_COUNT 8
+#endif
+
+#define NEOPXM_NONE 0
+#define NEOPXM_STICK_RGB 1
+
+#define USE_NEOPIXEL_MODE NEOPXM_STICK_RGB
+#if USE_NEOPIXEL_MODE == NEOPXM_STICK_RGB
+    #define __NEOPX_PIXEL_COUNT 8
+    #define __NEOPX_PIN pin_t(7)
+    #define __NEOPX_TYPE NEO_RGB
+    #define __NEOPX_BRT_DIV 30
+    #define __USE_NEOPIXEL
 #endif
 
 #endif // HH_CONFIG_H

@@ -12,13 +12,13 @@ class HHNeoPixel
 public:
     HHNeoPixel();
     void initialize();
-    void changeColor(uint8_t pixel_id, uint8_t red, uint8_t green, uint8_t blue);
+    void change_color(uint8_t pixel_id, uint8_t red, uint8_t green, uint8_t blue);
     void refresh();
 
 private:
     bool _isDirty;
     Adafruit_NeoPixel _pixel;
-    uint32_t _currentColor[NEO_PIXEL_COUNT];
+    uint32_t _currentColor[__NEOPX_PIXEL_COUNT];
 };
 
 #endif

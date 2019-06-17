@@ -7,20 +7,22 @@ HHMuxMonitor::HHMuxMonitor(volatile state_t& state)
 
 void HHMuxMonitor::initialize()
 {
-#if (__BTN_PORTS == 1) && (__BTN_BANKS == 4)
+#if (__BTN_PORTS == 1)
     // Set the port as input with pullups
-    __DDR(BTNM_IN_PORT) = 0x00;
-    __PORT(BTNM_IN_PORT) = 0xFF;
+    __DDR(__BTN_IN_PORT) = 0x00;
+    __PORT(__BTN_IN_PORT) = 0xFF;
+#endif
 
+#if (__BTN_BANKS == 4)
     // Set the selection pins as output
-    bitSet(__DDR(BTNM_SEL_PORT), BTNM_SEL_BIT0);
-    bitSet(__DDR(BTNM_SEL_PORT), BTNM_SEL_BIT1);
+    bitSet(__DDR(__BTN_SEL_PORT), __BTN_SEL_BIT_0);
+    bitSet(__DDR(__BTN_SEL_PORT), __BTN_SEL_BIT_1);
 #endif
 }
 
 void HHMuxMonitor::update(millis_t curr_millis)
 {
-    if (curr_millis - _last_update >= _update_interval)
+    if (curr_millis - _last_update >= __BTN_UPDATE_INT_MS)
     {
 #if (__BTN_PORTS == 1) && (__BTN_BANKS == 4)
         uint8_t sel_bank = 0;
@@ -28,11 +30,10 @@ void HHMuxMonitor::update(millis_t curr_millis)
         {
             BYTE_LOOP(j, 2)
             {
-                bitWrite(__PORT(BTNM_SEL_PORT), BTNM_SEL_BIT0, i);
-                bitWrite(__PORT(BTNM_SEL_PORT), BTNM_SEL_BIT1, j);
+                bitWrite(__PORT(__BTN_SEL_PORT), __BTN_SEL_BIT_0, i);
+                bitWrite(__PORT(__BTN_SEL_PORT), __BTN_SEL_BIT_1, j);
 
-                uint8_t cap = __PIN(BTNM_IN_PORT);
-                _state.update_button_history_inv(sel_bank++, cap);
+                _state.update_button_history_inv(sel_bank++, __PIN(__BTN_IN_PORT));
             }
         }
 #endif

@@ -7,6 +7,7 @@
 #include <Arduino.h>
 #include <TimerOne.h>
 
+#include "HedgehogDebug.h"
 #include "HedgehogEnums.h"
 #include "HedgehogData.h"
 #include "HedgehogSerial.h"
@@ -25,7 +26,8 @@ typedef uint64_t millis_t;
 
 typedef struct State
 {
-    uint8_t momentaryButtonHistory[__BTN_COUNT] = {0};
+    uint8_t momentaryButtonHistory[BTN_COUNT] = {0};
+    uint8_t analogInputs[ANALOG_COUNT] = {0};
 
     void update_button_history_inv(uint8_t bank, uint8_t cap) volatile
     {
@@ -44,7 +46,7 @@ typedef struct State
 
     uint8_t is_button_pressed(uint8_t id) volatile
     {
-        assert(id < __BTN_COUNT);
+        assert(id < BTN_COUNT);
 
         uint8_t pressed = 0;
         if (mask_bits(momentaryButtonHistory[id]) == 0b0000001){ 
@@ -56,7 +58,7 @@ typedef struct State
 
     uint8_t is_button_released(uint8_t id) volatile
     {
-        assert(id < __BTN_COUNT);
+        assert(id < BTN_COUNT);
 
         uint8_t released = 0;   
         if (mask_bits(momentaryButtonHistory[id]) == 0b11000000){ 
@@ -78,65 +80,4 @@ inline bool process_update(volatile bool& flag)
 
     return false;
 }
-
-#define HH_ATTACH_INT(x,y) attachInterrupt(digitalPinToInterrupt(x), y, FALLING);
-#define HH_DETACH_INT(x) detachInterrupt(digitalPinToInterrupt(x));
-
-class HHInterruptLock
-{
-public:
-    HHInterruptLock(uint8_t pin, void (*const isr)())
-        : _pin{pin}, _isr{isr}
-    {
-        noInterrupts();
-        HH_DETACH_INT(_pin);
-        interrupts();
-    }
-
-    ~HHInterruptLock()
-    {
-        HH_ATTACH_INT(_pin, _isr);
-    }
-
-private:
-    uint8_t _pin;
-    void (*const _isr)();
-    HHInterruptLock(const HHInterruptLock&);
-};
-
-class HHTimerOneInterruptLock
-{
-public:
-    HHTimerOneInterruptLock(void (*const isr)())
-        : _isr{isr}
-    {
-        noInterrupts();
-        Timer1.detachInterrupt();
-        interrupts();
-    }
-
-    ~HHTimerOneInterruptLock()
-    {
-        Timer1.attachInterrupt(_isr);
-    }
-
-private:
-    void (*const _isr)();
-    HHTimerOneInterruptLock(const HHTimerOneInterruptLock&);
-};
-
-class HHVolatileReadInterruptLock
-{
-public:
-    HHVolatileReadInterruptLock()
-    {
-        noInterrupts();
-    }
-
-    ~HHVolatileReadInterruptLock()
-    {
-        interrupts();
-    }
-};
-
 #endif
